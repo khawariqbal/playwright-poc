@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Test User",
+    "email": "testuser123459@yopmail.com",
+    "password": "Test@123",
+    "firstName": "Test",
+    "lastName": "User",
+    "address": "123 Test Street",
+    "state": "Punjab",
+    "city": "Lahore",
+    "zipcode": "12345",
+    "mobileNumber": "1234567890"
+  },
+  {
+    "name": "Alice Example",
+    "email": "alice@example.com",
+    "password": "Alice@123",
+    "firstName": "Alice",
+    "lastName": "Example",
+    "address": "456 Example Ave",
+    "state": "Sindh",
+    "city": "Karachi",
+    "zipcode": "54321",
+    "mobileNumber": "0987654321"
+  },
+  {
+    "name": "Bob Demo",
+    "email": "bobdemo@yopmail.com",
+    "password": "Bob@123",
+    "firstName": "Bob",
+    "lastName": "Demo",
+    "address": "789 Demo Blvd",
+    "state": "KPK",
+    "city": "Peshawar",
+    "zipcode": "67890",
+    "mobileNumber": "5555555555"
+  },
+    {
+    "name": "John Doe",
+    "email": "johndo@yopmail.com",
+    "password": "Bob@123",
+    "firstName": "Bob",
+    "lastName": "Demo",
+    "address": "789 Demo Blvd",
+    "state": "KPK",
+    "city": "Peshawar",
+    "zipcode": "67890",
+    "mobileNumber": "5555555555"
+  },
+    {
+    "name": "Alpha Beta",
+    "email": "alphabeta@yopmail.com",
+    "password": "Bob@123",
+    "firstName": "Bob",
+    "lastName": "Demo",
+    "address": "789 Demo Blvd",
+    "state": "KPK",
+    "city": "Peshawar",
+    "zipcode": "67890",
+    "mobileNumber": "5555555555"
+  }
+]
