@@ -27,7 +27,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
-     baseURL: 'https://automationexercise.com'
+    baseURL: 'https://automationexercise.com'
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
   },
 
@@ -35,16 +35,18 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: 
+      use:
       {
-        'browserName': 'chromium', 
-        'screenshot': 'on',
-        'trace': 'on',
+        'browserName': 'chromium',
+        actionTimeout: 10000,
+        trace: 'on-first-retry',
+        screenshot: 'only-on-failure',
+        video: 'off',
         headless: false,
         viewport: null,
         launchOptions: {
           args: ['--start-maximized']
-        }, 
+        },
       },
     },
 
