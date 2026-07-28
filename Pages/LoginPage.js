@@ -1,5 +1,6 @@
 const { expect } = require("@playwright/test");
-const { HomePage } = require("../Pages//HomePage");
+const { HomePage } = require("../Pages/HomePage");
+const {DashboardPage} = require("../Pages/DashboardPage");
 
 class LoginPage {
 
@@ -24,7 +25,7 @@ class LoginPage {
     }
 
     async goTo() {
-        await this.page.goto('baseUrl');
+        await this.page.goto('/');
     }
 
     async navigateToSignupLoginPage() {
@@ -63,7 +64,6 @@ class LoginPage {
         await this.email.type(email);
         await this.signUp.click();
     }
-
     get registerExistingUserErrorMessage() {
         return this.page.locator("//p[contains(text(),'Email Address already exist!')]");
     }
@@ -73,7 +73,12 @@ class LoginPage {
         await this.userName.type(username);
         await this.password.type(password);
         await this.login.click();
-        return new HomePage(this.page);
+        return new DashboardPage(this.page);
+    }
+    async loginWithInvalidCredentials(username, password) {
+        await this.userName.type(username);
+        await this.password.type(password);
+        await this.login.click();
     }
 }
 module.exports = { LoginPage };

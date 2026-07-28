@@ -1,0 +1,7 @@
+{
+    "name": "John Doe",
+    "email": "johndoe@example.com",
+    "subject": "Test Subject",
+    "message": "This is a test message.",
+    "filePath": "tests/files/test.pdf"
+}
