@@ -1,20 +1,21 @@
 const { test, expect } = require("@playwright/test");
-const { LoginPage } = require("../Pages/LoginPage");
-const configData = require("../utils/config.json")
 const { DashboardPage } = require("../Pages/DashboardPage");
+const { LoginPage } = require("../Pages/LoginPage");
+const configData = require("../utils/config.json");
 
-let loginPage, dashboardPage;
+let dashboardPage;
+let loginPage;
 
-// Log in and navigate to the dashboard before each dashboard test.
+// Reuse the shared authenticated session for dashboard tests.
 test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
+    dashboardPage = new DashboardPage(page);
     await loginPage.goTo('/');
-    await loginPage.navigateToSignupLoginPage();
-    dashboardPage = await loginPage.loginToApplication(configData.username, configData.password);
 });
 
 // Verify the dashboard indicates the user is logged in.
 test('Verify Dashboard Page Loaded', async ({ page }) => {
-    await expect(dashboardPage.getLoggedInText()).toContain('Logged in as');
+    const loggedInText = await dashboardPage.getLoggedInText();
+    await expect(loggedInText).toContain('Logged in as');
 });
 

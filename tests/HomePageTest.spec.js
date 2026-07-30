@@ -1,8 +1,9 @@
 const { test, expect } = require('@playwright/test');
-const { LoginPage } = require('../Pages/LoginPage');
 const { HomePage } = require('../Pages/HomePage');
-const configData = require('../utils/config.json');
+const { LoginPage } = require('../Pages/LoginPage');
 const contactFormData = require('../utils/contactFormData.json');
+
+test.use({ storageState: { cookies: [], origins: [] } });
 
 let homePage;
 let loginPage;

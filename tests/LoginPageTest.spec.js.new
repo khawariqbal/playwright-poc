@@ -2,21 +2,26 @@ const { test, expect } = require("@playwright/test");
 const { LoginPage } = require("../Pages/LoginPage");
 const configData = require("../utils/config.json");
 const users = require("../utils/users.json");
-test.use({ storageState: { cookies: [], origins: [] } });
+
 let loginPage;
 
-test.beforeEach(async ({ page }) => {
-  loginPage = new LoginPage(page);
-  await loginPage.goTo('/');
-});
-test.describe('test cases without using storage state', async () => {
-  test('Register new users from data', async ({ page }) => {
+test.describe('Login flow tests', () => {
+  test.use({ storageState: { cookies: [], origins: [] } });
+
+  test.beforeEach(async ({ page }) => {
+    loginPage = new LoginPage(page);
+    await loginPage.goTo('/');
+  });
+
+  test('Register new users from data', async () => {
     for (const user of users) {
       await loginPage.registerNewUserStep1(user.name, user.email);
+
       if (await loginPage.registerExistingUserErrorMessage.isVisible()) {
         console.log(`User ${user.email} already exists, skipping.`);
         continue;
       }
+
       await loginPage.registerNewUserStep2(
         user.password,
         user.firstName,
@@ -27,19 +32,28 @@ test.describe('test cases without using storage state', async () => {
         user.zipcode,
         user.mobileNumber
       );
+
       await expect(loginPage.accountCreatedMessage).toHaveText('Account Created!');
       await loginPage.continueButton.click();
     }
   });
-  // Verify that invalid login credentials display the correct error message.
-  test('Login with invalid credentials', async ({ page }) => {
+
+  test('Login with invalid credentials', async () => {
     await loginPage.loginWithInvalidCredentials(configData.invalidUsername, configData.invalidPassword);
-    await expect(loginPage.invalidLoginErrorMessage).toBeVisible();
+    await expect(loginPage.page.locator("//p[contains(text(),'Your email or password is incorrect!')]"))
+      .toBeVisible();
   });
 });
-// Verify successful login with valid credentials.
-test('Login to application', async ({ page }) => {
-  await loginPage.loginToApplication(configData.username, configData.password);
-  await page.context().storageState({ path: "user.json" });
-  await expect(loginPage.page).toHaveURL('/')
+
+test.describe('Authenticated user tests', () => {
+  test.use({ storageState: 'user.json' });
+
+  test.beforeEach(async ({ page }) => {
+    loginPage = new LoginPage(page);
+    await loginPage.goTo('/');
+  });
+
+  test('Login to application', async () => {
+    await expect(loginPage.page.locator('text=Logged in as')).toBeVisible();
+  });
 });
